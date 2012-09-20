@@ -3,9 +3,9 @@ require File.expand_path('../lib/sti_support_form/version', __FILE__)
 
 Gem::Specification.new do |gem|
   gem.authors       = ["Quinn"]
-  gem.email         = ["chaffeqa@gmail.com"]
-  gem.description   = %q{TODO: Write a gem description}
-  gem.summary       = %q{TODO: Write a gem summary}
+  gem.email         = ["developers@sportstechinc.com"]
+  gem.description   = %q{Fill in the STI support form which will be game agnostic.}
+  gem.summary       = %q{Fill in the STI support form which will be game agnostic.}
   gem.homepage      = ""
 
   gem.files         = `git ls-files`.split($\)
