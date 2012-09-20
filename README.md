@@ -1,6 +1,6 @@
 # StiSupportForm
 
-TODO: Write a gem description
+Fill in the STI support form which will be game agnostic.
 
 ## Installation
 
