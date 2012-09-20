@@ -1,0 +1,79 @@
+<div id="sti_support_container">
+  <form action="<%= StiSupportForm.sti_app_mon_url %>" id="support_ticket_form" method="post" name="support_ticket_form" onsubmit="send_form(); return false;">  
+    <div class="form_pair">
+      <label for="support_ticket_user_name">Your Name</label>
+      <input type="text" name="support_ticket[user_name]" id="support_ticket_user_name" value="">
+      <p class="descr">Just your first name is fine, so we know who we're speaking to.</p>
+    </div>
+
+    <div class="form_pair">
+      <label for="support_ticket_email">Your Email Address</label>
+      <input type="text" name="support_ticket[email]" id="support_ticket_email" value="">
+      <p class="descr">We'll follow up with the issue to this address.</p>
+    </div>
+
+    <div class="form_pair">
+      <label for="support_ticket_summary">Summarize your problem</label>
+      <input type="text" name="support_ticket[summary]" id="support_ticket_summary" size="140" onkeyup="updateCharCount();">
+      <p class="descr" id="count">140 characters left</p>
+    </div>
+  
+    <div class="form_pair">
+      <label for="support_ticket_description">Describe your issue <span>(Please be as verbose as possible)</span></label>
+      <textarea name="support_ticket[description]" id="support_ticket_description"></textarea>
+    </div>
+  
+    <div class="hidden_fields">
+      <input type="hidden" name="support_ticket[ip_address]" id="support_ticket_ip_address" value="">
+      <input type="hidden" name="support_ticket[project_id]" id="support_ticket_project_id" value="<%= project_id %>">
+      <input type="hidden" name="support_ticket[game_entry_id]" id="support_ticket_game_entry_id" value="<%= game_entry_id %>">
+      <input type="hidden" name="support_ticket[user_agent_string]" id="support_ticket_user_agent_string" value="">
+    </div>
+  
+    <div class="buttons">
+      <input type="submit" value="Submit &rarr;">
+    </div>
+    <div class="twitter">
+      You may also contact us on Twitter <%= link_to "@sportstechinc", "http://twitter.com/#!/sportstechinc" %>
+    </div>
+  </form>
+</div>
+
+
+<style type="text/css" media="screen">
+  .form_pair{padding:0.75em 0; margin:0.75em 0; border-bottom:1px dotted #ddd;}
+  .form_pair label{display:block; font-size:1.1667em;}
+  .form_pair label span{font-weight:normal; color:#999;}
+  .form_pair input{display:block;}
+  .form_pair textarea{display:block;}
+  .form_pair .descr{font-size:0.8em; color:#666; margin:0;}
+</style>
+
+<script type="text/javascript" charset="utf-8">
+  var ua      = navigator.userAgent;
+  var ip      = '<%= request.remote_ip %>';
+  
+  // document.getElementById("support_ticket_description").innerHTML = "What steps will reproduce the problem?\n1. \n2. \n3. \n\nWhat did you expect to see? What do you see instead?\n\nAny other information?\n\n"
+    
+  document.getElementById("support_ticket_ip_address").value        = ip;
+  document.getElementById("support_ticket_user_agent_string").value = ua;
+  
+  function updateCharCount(){
+    count = 140 - document.getElementById("support_ticket_summary").value.length;
+    document.getElementById("count").innerHTML = count + " characters left";
+  }
+  
+  function send_form(){
+    ($j || jQuery).ajax({
+      type: 'POST',
+      url: '<%= StiSupportForm.sti_app_mon_url %>',
+      data: Form.serialize('support_ticket_form'),
+      success: form_complete()
+    });
+  }
+  
+  function form_complete(){
+    document.getElementById("sti_support_container").innerHTML = "<p class=\"support_sent\">Thanks for you submission! Your issue is being reviewed by a member of our staff right now. You will be contacted shortly at the email address that you provided. Thanks for playing!</p><p class=\"twitter\">You may also contact us on Twitter <a href=\"http://twitter.com/#!/sportstechinc\">@sportstechinc</a></p>";
+  }
+</script>
+
