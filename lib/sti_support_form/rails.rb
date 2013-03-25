@@ -17,7 +17,7 @@ module StiSupportForm
   # Instance Methods
   def render_support_form(game_entry_id, project_id)
     if defined? Rails
-      render :partial => File.expand_path('../../views/form.html.erb', __FILE__), :locals => {:game_entry_id => game_entry_id, :project_id => project_id}
+      render :partial => File.expand_path('../../../views/form.html.erb', __FILE__), :locals => {:game_entry_id => game_entry_id, :project_id => project_id}
     end
     
   end
